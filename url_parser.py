@@ -5,16 +5,6 @@ import re
 
 protocols = ['https', 'http', 'ftp']
 
-def print_parsed_url(url, result_array):
-  print('URL: ' + url + '\n' + '**********')
-  summary = ''
-  summary += 'Protocol: ' + result_array[0] + '\n' + 'Host: ' + result_array[1] + '\n'
-  if(result_array[2] == '/'):
-    summary += 'Path: ' + result_array[3] + '\n'
-  elif(result_array[2] == '?'):
-    summary += 'Parameters: ' + result_array[3] + '\n'
-  return summary
-
 def parse_url(url):
   if isinstance(url, str):
     url = url.lower()
@@ -22,7 +12,14 @@ def parse_url(url):
       result = '^({0}:\/\/)([\S\w][^?\/]*)([\/|\?]?)([\S]*)'.format(protocol)
       if(re.search(result, url)):
         result_array = re.search(result, url).groups()
-        return print_parsed_url(url, result_array)
+        print('URL: ' + url + '\n' + '**********')
+        summary = ''
+        summary += 'Protocol: ' + result_array[0] + '\n' + 'Host: ' + result_array[1] + '\n'
+        if(result_array[2] == '/'):
+          summary += 'Path: ' + result_array[3] + '\n'
+        elif(result_array[2] == '?'):
+          summary += 'Parameters: ' + result_array[3] + '\n'
+        return summary
     return 'Undefined protocol'
   else:
     print('It\'s not URL. Enter URL')
